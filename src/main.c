@@ -1156,13 +1156,13 @@ status_again:
 	}
 
 	if (final_reset) {
-		if (dfu_detach(dif->dev_handle, dif->interface, 1000) < 0) {
-			fprintf(stderr, "can't detach\n");
-		}
 		printf("Resetting USB to switch back to runtime mode\n");
 		ret = libusb_reset_device(dif->dev_handle);
 		if (ret < 0 && ret != LIBUSB_ERROR_NOT_FOUND) {
 			fprintf(stderr, "error resetting after download\n");
+		}
+		if (dfu_detach(dif->dev_handle, dif->interface, 1000) < 0) {
+			fprintf(stderr, "can't detach\n");
 		}
 	}
 
